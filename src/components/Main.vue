@@ -1,6 +1,8 @@
 <template>
   <div class="main-container">
-    <h1>Vue.js full screen timer app</h1>
+    <h1>
+      <input v-model="title">
+    </h1>
     <div class="time">{{ hours | padNumber }}:{{ minutes | padNumber }}:{{ seconds | padNumber }}</div>
     <div class="buttons">
       <button v-if="!started" v-on:click="startTimer">Start</button>
@@ -16,6 +18,7 @@ export default {
   name: 'main',
   data () {
     return {
+      title: 'Vue.js full screen timer app',
       duration: 0,
       hours: 0,
       minutes: 0,
@@ -77,29 +80,46 @@ export default {
 
 <style scoped>
   .main-container {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
   }
   h1 {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    margin: 0;
+  }
+  h1 > input {
+    width: 100%;
     font-size: 5vw;
+    text-align: center;
+    border: none;
+    background: transparent;
   }
   .time {
-    width: 96%;
-    font-size: 20vw;
-    text-align: center;
-    border: 0.5vw solid #e6e6e6;
-    border-radius: 50vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 21vw;
+    cursor: default;
+  }
+  .buttons {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 2vh;
   }
   .buttons > button {
-    margin-top: 1em;
     font-size: 3vw;
-    padding: 1vw 4vw;
-    border-radius: 50vw;
-    border: 2px solid #e6e6e6;
-    background-color: #f0f0f0;
+    padding: 0.5vw 1.5vw;
+    border-radius: 1vw;
+    border: 0.1vw solid #e6e6e6;
+    background-color: transparent;
+    cursor: pointer;
   }
 </style>
