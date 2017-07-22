@@ -1,10 +1,28 @@
 <template>
   <div class="main-container">
-    <h1>
+    <div class="title-container">
       <input v-model="title">
-    </h1>
-    <div class="time">{{ hours | padNumber }}:{{ minutes | padNumber }}:{{ seconds | padNumber }}</div>
-    <div class="buttons">
+    </div>
+    
+    <div class="timer-container"
+      v-bind:class="{
+        red: started && !reversed && duration < 60,
+        green: started && reversed
+      }">
+
+      <input class="input-timer minutes"
+        :disabled="started"
+        :value="minutes | padNumber"
+        @input="updateValue('minutes', $event.target.value)">
+      <span class="separator">:</span>
+      <input class="input-timer seconds"
+        :disabled="started"
+        :value="seconds | padNumber"
+        @input="updateValue('seconds', $event.target.value)">
+
+    </div>
+    
+    <div class="buttons-container">
       <button v-if="!started" v-on:click="startTimer">Start</button>
       <button v-if="started && !paused" v-on:click="pauseTimer">Pause</button>
       <button v-if="started && paused" v-on:click="resumeTimer">Resume</button>
@@ -20,11 +38,11 @@ export default {
     return {
       title: 'Vue.js full screen timer app',
       duration: 0,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
+      minutes: 59,
+      seconds: 59,
       paused: true,
       started: false,
+      reversed: false,
       interval: undefined
     }
   },
@@ -41,6 +59,7 @@ export default {
     startTimer: function () {
       this.started = true;
       this.paused = false;
+      this.calculateDuration();
       this.startInterval();
     },
     pauseTimer: function () {
@@ -52,27 +71,52 @@ export default {
       this.startInterval();
     },
     resetTimer: function () {
+      this.reversed = false;
       this.started = false;
       this.paused = true;
       this.stopInterval();
-      this.hours = 0;
-      this.minutes = 0;
-      this.seconds = 0;
+      this.minutes = 59;
+      this.seconds = 59;
       this.duration = 0;
     },
+    calculateDuration: function () {
+      this.duration = (this.minutes * 60) + this.seconds;
+    },
     setTime: function (duration) {
-      this.hours = Math.floor(duration / 3600) % 60;
       this.minutes = Math.floor(duration / 60) % 60;
       this.seconds = duration % 60;
     },
     startInterval: function () {
       this.interval = setInterval(() => {
-        this.duration = this.duration + 1;
+        if (this.duration <= 0) {
+          this.reversed = true;
+        }
+
+        if (!this.reversed) {
+          this.duration -= 1;
+        } else {
+          this.duration += 1;
+        }
+
         this.setTime(this.duration);
       }, 1000);
     },
     stopInterval: function () {
       window.clearInterval(this.interval);
+    },
+    updateValue: function (field, value) {
+      var formattedValue = Number(value);
+
+      if (isNaN(formattedValue) || !Number.isInteger(formattedValue)) {
+        formattedValue = this[field];
+      } else if (formattedValue > 59) {
+        formattedValue = this[field];
+      } else if (formattedValue < 0) {
+        formattedValue = this[field];
+      }
+
+      this[field] = formattedValue;
+      this.$forceUpdate();
     }
   }
 }
@@ -83,40 +127,76 @@ export default {
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
   }
-  h1 {
-    position: fixed;
+  .title-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-shrink: 0;
     width: 100%;
-    top: 0;
+    height: 6vw;
     margin: 0;
+    z-index: 1;
   }
-  h1 > input {
+  .title-container > input {
     width: 100%;
     font-size: 5vw;
     text-align: center;
     border: none;
     background: transparent;
   }
-  .time {
+  .timer-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
-    font-size: 21vw;
+    height: 35vw;
+    font-size: 36vw;
     cursor: default;
+    color: black;
   }
-  .buttons {
-    position: fixed;
-    bottom: 0;
-    margin-bottom: 2vh;
+  .timer-container.red {
+    color: red;
   }
-  .buttons > button {
+  .timer-container.green {
+    color: green;
+  }
+  .input-timer {
+    font-size: inherit;
+    width: 40vw;
+    border: none;
+    background: transparent;
+  }
+  .input-timer:disabled {
+    color: inherit;
+  }
+  .input-timer.seconds {
+    text-align: left;
+  }
+  .input-timer.minutes {
+    text-align: right;
+  }
+  .separator {
+    margin-top: -50vw;
+    height: 0;
+    user-select: none;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 6vw;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .buttons-container > button {
     font-size: 3vw;
     padding: 0.5vw 1.5vw;
+    margin: 0 0.5vw 0 0.5vw;
     border-radius: 1vw;
     border: 0.1vw solid #e6e6e6;
     background-color: transparent;

@@ -18,6 +18,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: monospace;
+  font-family: "Times New Roman", Times, serif;
 }
 </style>
