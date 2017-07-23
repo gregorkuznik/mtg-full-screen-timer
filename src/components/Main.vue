@@ -10,6 +10,7 @@
         green: started && reversed
       }">
 
+      <span class="sign" v-if="started && reversed">-</span>
       <input class="input-timer minutes"
         :disabled="started"
         :value="minutes | padNumber"
@@ -22,7 +23,10 @@
 
     </div>
     
-    <div class="buttons-container">
+    <div class="buttons-container"
+      v-bind:class="{
+        hidden: started && !paused,
+      }">
       <button v-if="!started" v-on:click="startTimer">Start</button>
       <button v-if="started && !paused" v-on:click="pauseTimer">Pause</button>
       <button v-if="started && paused" v-on:click="resumeTimer">Resume</button>
@@ -137,7 +141,7 @@ export default {
     align-items: flex-end;
     flex-shrink: 0;
     width: 100%;
-    height: 6vw;
+    flex-grow: 1;
     margin: 0;
     z-index: 1;
   }
@@ -154,7 +158,7 @@ export default {
     justify-content: center;
     width: 100%;
     height: 35vw;
-    font-size: 36vw;
+    font-size: 34vw;
     cursor: default;
     color: black;
   }
@@ -166,22 +170,26 @@ export default {
   }
   .input-timer {
     font-size: inherit;
-    width: 40vw;
+    width: 38vw;
+    height: 30vw;
     border: none;
     background: transparent;
   }
   .input-timer:disabled {
     color: inherit;
   }
-  .input-timer.seconds {
+  /*.input-timer.seconds {
     text-align: left;
   }
   .input-timer.minutes {
     text-align: right;
+  }*/
+  .sign {
+    margin-top: -5vw;
+    user-select: none;
   }
   .separator {
-    margin-top: -50vw;
-    height: 0;
+    margin-top: -2vw;
     user-select: none;
   }
   .buttons-container {
@@ -189,17 +197,27 @@ export default {
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    height: 6vw;
-    flex-shrink: 0;
+    flex-grow: 1;
     z-index: 1;
+  }
+  .buttons-container.hidden > button {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .buttons-container:hover > button {
+    opacity: 1;
+    pointer-events: all;
   }
   .buttons-container > button {
     font-size: 3vw;
-    padding: 0.5vw 1.5vw;
+    padding: 1.2vw 3vw;
     margin: 0 0.5vw 0 0.5vw;
-    border-radius: 1vw;
-    border: 0.1vw solid #e6e6e6;
-    background-color: transparent;
+    border-radius: 0.5vw;
+    border: none;
+    color: white;
+    background-color: cornflowerblue;
     cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+    text-transform: uppercase;
   }
 </style>
