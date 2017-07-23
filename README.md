@@ -1,6 +1,6 @@
 # full-screen-timer-vue
 
-> Full screen timer application created in Vue.js
+> Full screen timer application created in Vue.js. Application is implemented by specifications so that it can be used for Magic The Gathering tournaments.
 
 ## Build Setup
 
