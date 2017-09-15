@@ -40,7 +40,7 @@ export default {
   name: 'main',
   data () {
     return {
-      title: 'Vue.js full screen timer app',
+      title: 'Edit title',
       duration: 0,
       minutes: 59,
       seconds: 59,
