@@ -47,7 +47,9 @@ export default {
       paused: true,
       started: false,
       reversed: false,
-      interval: undefined
+      interval: undefined,
+      resetMinutes: 50,
+      resetSeconds: 0
     }
   },
   filters: {
@@ -63,6 +65,8 @@ export default {
     startTimer: function () {
       this.started = true;
       this.paused = false;
+      this.resetMinutes = this.minutes;
+      this.resetSeconds = this.seconds;
       this.calculateDuration();
       this.startInterval();
     },
@@ -79,8 +83,8 @@ export default {
       this.started = false;
       this.paused = true;
       this.stopInterval();
-      this.minutes = 59;
-      this.seconds = 59;
+      this.minutes = this.resetMinutes;
+      this.seconds = this.resetSeconds;
       this.duration = 0;
     },
     calculateDuration: function () {
