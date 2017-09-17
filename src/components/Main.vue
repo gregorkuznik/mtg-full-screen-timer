@@ -42,8 +42,8 @@ export default {
     return {
       title: 'Edit title',
       duration: 0,
-      minutes: 59,
-      seconds: 59,
+      minutes: 50,
+      seconds: 0,
       paused: true,
       started: false,
       reversed: false,
