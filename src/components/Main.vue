@@ -175,7 +175,7 @@ export default {
   .input-timer {
     font-size: inherit;
     width: 38vw;
-    height: 30vw;
+    height: 35vw;
     border: none;
     background: transparent;
     font-family: "Roboto";
