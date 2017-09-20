@@ -130,7 +130,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+  @font-face {
+    font-family: 'Roboto';
+    src: url('../../static/fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
   .main-container {
     width: 100vw;
     height: 100vh;
@@ -173,6 +179,7 @@ export default {
     color: green;
   }
   .input-timer {
+    font-family: "Roboto";
     font-size: inherit;
     width: 38vw;
     height: 30vw;
