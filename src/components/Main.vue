@@ -178,6 +178,7 @@ export default {
     height: 30vw;
     border: none;
     background: transparent;
+    font-family: "Roboto";
   }
   .input-timer:disabled {
     color: inherit;
