@@ -182,12 +182,13 @@ export default {
     font-family: "Roboto";
     font-size: inherit;
     width: 38vw;
-    height: 30vw;
+    height: 32vw;
     border: none;
     background: transparent;
   }
   .input-timer:disabled {
     color: inherit;
+    -webkit-text-fill-color: black;
   }
   /*.input-timer.seconds {
     text-align: left;
