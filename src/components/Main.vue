@@ -174,15 +174,9 @@ export default {
   }
   .timer-container.red {
     color: red;
-    .input-timer:disabled {
-      color: red;
-    }
   }
   .timer-container.green {
     color: green;
-    .input-timer:disabled {
-      color: green;
-    }
   }
   .input-timer {
     font-family: "Roboto";
@@ -193,7 +187,7 @@ export default {
     background: transparent;
   }
   .input-timer:disabled {
-    color: inherit;
+    color: unset;
   }
   /*.input-timer.seconds {
     text-align: left;
