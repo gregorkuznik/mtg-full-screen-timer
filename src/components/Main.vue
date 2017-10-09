@@ -187,8 +187,7 @@ export default {
     background: transparent;
   }
   .input-timer:disabled {
-    color: inherit;
-    -webkit-text-fill-color: black;
+    color: unset;
   }
   /*.input-timer.seconds {
     text-align: left;
