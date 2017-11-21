@@ -91,7 +91,7 @@ export default {
       this.duration = (this.minutes * 60) + this.seconds;
     },
     setTime: function (duration) {
-      this.minutes = Math.floor(duration / 60) % 60;
+      this.minutes = Math.floor(duration / 60);
       this.seconds = duration % 60;
     },
     startInterval: function () {
@@ -117,7 +117,9 @@ export default {
 
       if (isNaN(formattedValue) || !Number.isInteger(formattedValue)) {
         formattedValue = this[field];
-      } else if (formattedValue > 59) {
+      } else if (formattedValue > 59 && field === 'seconds') {
+        formattedValue = this[field];
+      } else if (formattedValue > 99 && field === 'minutes') {
         formattedValue = this[field];
       } else if (formattedValue < 0) {
         formattedValue = this[field];
