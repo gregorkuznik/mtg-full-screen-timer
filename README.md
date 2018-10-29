@@ -2,6 +2,8 @@
 
 > Full screen timer application created in Vue.js. Application is implemented by specifications so that it can be used for Magic The Gathering tournaments.
 
+Timer is available at https://timer.balistos.com/#/
+
 ## Build Setup
 
 ``` bash
